@@ -28,7 +28,7 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			input: 'https://www.sciencedaily.com/images/2017/09/170904120420_1_900x600.jpg',
+			input: 'http://facedetection.jaysalvat.com/img/faces.jpg',
 			faces: null
 		};
 	}
