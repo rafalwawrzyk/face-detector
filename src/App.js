@@ -40,7 +40,7 @@ class App extends Component {
 
 	onButtonSubmit = () => {
 		this.setState({imgUrl:this.state.input})
-		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
+		app.models.predict(Clarifai.GENERAL_MODEL, 'https://www.sciencenewsforstudents.org/sites/default/files/2016/12/main/articles/860_main_beauty.png').then(
 			function(response) {
 				const facesArray = response.outputs[0].data.regions.map((region) => {
 					return region;
@@ -62,7 +62,7 @@ class App extends Component {
 				<Logo />
 				<Rank />
 				<ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
-				<FaceRecognition imageUrl={this.state.imgUrl} />
+				<FaceRecognition imageUrl={this.state.imgUrl} faces={this.state.faces} />
 			</div>
 		);
 	}
