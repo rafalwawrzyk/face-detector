@@ -38,20 +38,20 @@ class App extends Component {
 		this.setState({ input: event.target.value });
 	};
 
+	calculatePercentage = (data) => {
+		return data * 100
+	}
+
 	onButtonSubmit = () => {
 		this.setState({imgUrl:this.state.input})
-		app.models.predict(Clarifai.GENERAL_MODEL, 'https://www.sciencenewsforstudents.org/sites/default/files/2016/12/main/articles/860_main_beauty.png').then(
-			function(response) {
-				const facesArray = response.outputs[0].data.regions.map((region) => {
-					return region;
-				});
-				console.log(facesArray)
-		
-			},
-			function(err) {
-				// there was an error
+		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+		.then((response) => {
+				this.setState({faces:response.outputs[0].data.regions.map((region) => {
+					return region
+				})})
 			}
-		);
+		)
+		.catch(err => console.log('error'));
 	};
 
 	render() {
@@ -62,7 +62,7 @@ class App extends Component {
 				<Logo />
 				<Rank />
 				<ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
-				<FaceRecognition imageUrl={this.state.imgUrl} faces={this.state.faces} />
+				<FaceRecognition imageUrl={this.state.imgUrl} faces={this.state.faces} calculatePercentage={this.calculatePercentage}/>
 			</div>
 		);
 	}
