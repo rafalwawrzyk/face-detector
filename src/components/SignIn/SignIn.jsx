@@ -1,7 +1,28 @@
-import React from 'react';
+import React,{Component} from 'react';
 
-const SignIn = ({onRouteChange}) => {
-	return (
+class SignIn extends Component{
+	constructor(props){
+		super(props);
+		this.state = {
+			signInEmail:'',
+			signInPassword:''
+		}
+
+	}
+
+
+	onEmailChange = (event) => {
+		this.setState({signInEmail:event.target.value})
+	}
+
+	onPasswordChange = (event) => {
+		this.setState({signInPassword:event.target.value})
+	}
+
+
+	render(){
+		const {onRouteChange} = this.props
+		return (
 			<article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
 
 			<main className="pa4 black-80">
@@ -52,6 +73,7 @@ const SignIn = ({onRouteChange}) => {
 			</main>
 			</article>
 	);
-};
+	}
+}
 
 export default SignIn;
