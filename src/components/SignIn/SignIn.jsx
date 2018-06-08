@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class SignIn extends Component {
 	constructor(props) {
@@ -19,15 +18,6 @@ class SignIn extends Component {
 	};
 
 	onSubmitSignIn = () => {
-		// axios({
-		// 	method: 'post',
-		// 	url: 'http://localhost:4000/signin',
-		// 	headers: {'Content-Type':'application/json'},
-		// 	data: {
-		// 	  email: this.state.signInEmail,
-		// 	  password: this.state.signInPassword
-		// 	}
-		//   });'
 		fetch('http://localhost:4000/signin', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
@@ -41,7 +31,7 @@ class SignIn extends Component {
 				if (user.id) {
 					this.props.loadUser(user);
 					this.props.onRouteChange('home');
-					console.log(user)
+					console.log(user);
 				}
 			});
 	};
