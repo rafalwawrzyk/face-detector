@@ -4,7 +4,6 @@ import Navigation from './components/Navigation/Navigation';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
@@ -22,15 +21,13 @@ const particleOptions = {
 	}
 };
 
-const app = new Clarifai.App({
-	apiKey: 'f837c7ad845a4510ae631f2090cf4a89'
-});
+
 
 const initialState = {
 	input: '',
 	faces: null,
 	imgUrl:'',
-	route:'home',
+	route:'register',
 	isSignedIn:false,
 	user: {
 		id:'',
@@ -80,10 +77,17 @@ class App extends Component {
 
 	onPictureSubmit = () => {
 		this.setState({imgUrl:this.state.input})
-		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+		fetch('https://polar-waters-14277.herokuapp.com/imageurl', {
+			method:'post',
+			headers:{'Content-Type':'application/json'},
+			body:JSON.stringify({
+				input:this.state.input
+			})
+		})
+		.then(response => response.json())
 		.then((response) => {
 			if(response){
-				fetch('http://localhost:4000/image',{
+				fetch('https://polar-waters-14277.herokuapp.com/image',{
 					method:'put',
 					headers:{'Content-Type':'application/json'},
 					body:JSON.stringify({

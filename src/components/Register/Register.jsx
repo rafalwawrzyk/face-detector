@@ -23,7 +23,7 @@ class Register extends Component {
 	};
 
 	onRegisterSubmit = () => {
-		fetch('http://localhost:4000/register', {
+		fetch('https://polar-waters-14277.herokuapp.com/register', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
@@ -34,11 +34,12 @@ class Register extends Component {
 		})
 			.then((response) => response.json())
 			.then((user) => {
-				if (user) {
+				if (user.id) {
+					console.log(user)
 					this.props.loadUser(user)
 					this.props.onRouteChange('home');
 				}
-			});
+			})
 	};
 
 	render() {
